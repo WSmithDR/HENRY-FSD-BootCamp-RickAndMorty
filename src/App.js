@@ -15,11 +15,15 @@ function App() {
          }else window.alert("¡No hay personaje con este Id!")
       })
    }
+   const onClose = (id)=>{
+      const filteredCharacters = characters.filter(character => character.id!==Number(id))
+      setCharacters(filteredCharacters)
+   }
    
    return (
       <div className='App'>
          <NavBar onSearch={onSearch}/>
-         <Cards characters={characters} />
+         <Cards characters={characters} onClose={onClose}/>
       </div>
    );
 }
