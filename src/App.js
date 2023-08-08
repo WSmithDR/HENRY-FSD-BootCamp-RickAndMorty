@@ -4,7 +4,8 @@ import Cards from './components/Cards.jsx';
 import NavBar from './components/NavBar';
 import {useState} from "react"
 import {Route, Routes} from "react-router-dom"
-
+import About from './components/About/About';
+import Detail from "./components/Detail/Detail"
 
 function App() {
    const [characters, setCharacters] = useState([])
@@ -24,7 +25,12 @@ function App() {
    return (
       <div className='App'>
          <NavBar onSearch={onSearch}/>
-         <Cards characters={characters} onClose={onClose}/>
+         <Routes>
+            <Route path="/home" element={<Cards characters={characters} onClose={onClose}/>}/>
+            <Route path="/about" element={<About/>}/>
+            <Route path="/detail/:id" element={<Detail/>}/>
+         </Routes>
+         
       </div>
    );
 }
