@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Card({
    id,
    name,
@@ -11,7 +13,7 @@ export default function Card({
    return (
       <div>
          <button onClick={()=>onClose(id)}>X</button>
-         <p><strong>Name: </strong>{name}</p>
+         <p className="card-name"><Link to={`/detail/${id}`}><strong>Name: </strong>{name}</Link></p>
          <p><strong>Status: </strong>{status}</p>
          <p><strong>Species: </strong>{species}</p>
          <p><strong>Gender: </strong>{gender}</p>
