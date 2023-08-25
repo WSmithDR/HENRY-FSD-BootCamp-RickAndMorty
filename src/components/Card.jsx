@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { addFav, removeFav } from "../redux/actions/actions";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
@@ -41,6 +41,7 @@ const Card = ({
          favChar.id === id && setIsFav(true)
       })
    },[myFavorites])
+
    return (
       <div>
          {isFav? (
