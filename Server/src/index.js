@@ -6,7 +6,7 @@ http.createServer((request, response)=>{
     if(request.url.includes("/rickandmorty/character/")){
         const id = request.url.split("/").at(-1)
         const foundCharacter = data.find(char => char.id === +id)
-        response.writeHead(200,{"Content-Type":"application/json"})
+        return response.writeHead(200,{"Content-type":"application/json"})
         .end(JSON.stringify(foundCharacter))
     }
-}).listen(3001)
+}).listen(3001,"localhost")
