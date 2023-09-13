@@ -10,7 +10,7 @@ import Form from './components/Form/Form';
 import Favorites from './components/Favorites/Favorites';
 
 //Data
-const EMAIL = "wagnersmith123@hotmail.com"
+const EMAIL = "pendejo2023@hotmail.com"
 const PASSWORD = "@BOLUDO_123"
 
 
