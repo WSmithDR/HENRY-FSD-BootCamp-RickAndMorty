@@ -31,15 +31,22 @@ function App() {
          }else window.alert("¡No hay personaje con este Id!")
       })
    }
+
    const onClose = (id)=>{
       const filteredCharacters = characters.filter(character => character.id!==Number(id))
       setCharacters(filteredCharacters)
    }
+
    const login =(userData)=>{
-      if(userData.email === EMAIL && userData.password === PASSWORD){
-         setAccess(true)
-         navigate("/home")
-      }
+      const {email, password} = userData
+      const URL = "http://localhost:3001/rickandmorty/login"
+      axios(URL+`?email=${email}&password=${password}`)
+      .then(response => response.data)
+      .then(data => {
+         const {access} = data
+         setAccess(access)
+         access && navigate("/home")
+      })
    }
 
    return (

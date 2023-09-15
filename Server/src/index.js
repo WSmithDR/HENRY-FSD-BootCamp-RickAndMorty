@@ -2,8 +2,10 @@ const express = require("express")
 const server = express()
 const PORT = 3001
 const router = require("./routes/index")
+const morgan = require("morgan")
 
 server.use(express.json())
+server.use(morgan("dev"))
 
 server.use((request, response, next)=> {
     response.header("Access-Control-Allow-Origin","*")
