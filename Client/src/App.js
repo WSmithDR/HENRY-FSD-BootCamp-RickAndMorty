@@ -9,10 +9,6 @@ import Detail from "./components/Detail/Detail"
 import Form from './components/Form/Form';
 import Favorites from './components/Favorites/Favorites';
 
-//Data
-const EMAIL = "wagnersmith123@hotmail.com"
-const PASSWORD = "@BOLUDO_123"
-
 
 function App() {
    //Hooks
