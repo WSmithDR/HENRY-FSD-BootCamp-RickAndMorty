@@ -23,13 +23,16 @@ function App() {
    useEffect(()=>{!access && navigate("/")},[access])
 
    //Handlers
-   const onSearch = (id)=>{
-      axios(`http://localhost:3001/rickandmorty/character/${id}`)
-      .then(({data})=>{
-         if(data.id){
-            setCharacters([...characters, data])
-         }else window.alert("¡No hay personaje con este Id!")
-      })
+   const onSearch = async (id)=>{
+      try {
+         const {data} = axios(`http://localhost:3001/rickandmorty/character/${id}`)
+         
+         if(data.name) setCharacters([...characters, data])
+
+   } catch (error) {
+      alert("¡No hay personaje con este Id!")
+      
+      }
    }
 
    const onClose = (id)=>{
@@ -37,16 +40,18 @@ function App() {
       setCharacters(filteredCharacters)
    }
 
-   const login =(userData)=>{
-      const {email, password} = userData
+   const login = async (userData)=>{
       const URL = "http://localhost:3001/rickandmorty/login"
-      axios(URL+`?email=${email}&password=${password}`)
-      .then(response => response.data)
-      .then(data => {
+      try {
+         const {email, password} = userData
+         const {data} = await axios(URL+`?email=${email}&password=${password}`)
          const {access} = data
          setAccess(access)
          access && navigate("/home")
-      })
+      } catch (error) {
+         console.le
+      }
+         
    }
 
    return (
