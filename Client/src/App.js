@@ -9,10 +9,6 @@ import Detail from "./components/Detail/Detail"
 import Form from './components/Form/Form';
 import Favorites from './components/Favorites/Favorites';
 
-//Data
-const EMAIL = "wagnersmith123@hotmail.com"
-const PASSWORD = "@BOLUDO_123"
-
 
 function App() {
    //Hooks
@@ -25,7 +21,7 @@ function App() {
    //Handlers
    const onSearch = async (id)=>{
       try {
-         const {data} = axios(`http://localhost:3001/rickandmorty/character/${id}`)
+         const {data} = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
          
          if(data.name) setCharacters([...characters, data])
 
@@ -49,7 +45,7 @@ function App() {
          setAccess(access)
          access && navigate("/home")
       } catch (error) {
-         console.le
+         console.log(error.message)
       }
          
    }
