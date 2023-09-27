@@ -25,9 +25,16 @@ describe("test de RUTAS", ()=>{
     })
 
     describe("GET /rickandmorty/login", ()=>{
+        const access = {access: true}
+        
         it("Responde con un objeto con la propiedad access en true si la información del usuario es válida", async()=>{
             const response = await  request.get("/rickandmorty/login?email=wagnersmith123@hotmail.com&password=@BOLUDO_123")
-            const access = {acess: true}
+            expect(response.body).toEqual(access)
+        })
+
+        it("Responde con un objeto con la propiedad access en false si la información del usuario no es válida", async()=>{
+            const response = await  request.get("/rickandmorty/login?email=wagnersmith123@hotmail.com&password=@BOLUDO_123dfsd")
+            access.access = false
             expect(response.body).toEqual(access)
         })
     })
