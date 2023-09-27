@@ -12,11 +12,15 @@ describe("test de RUTAS", ()=>{
         it("Responde un objeto con las propiedades: 'id', 'name', 'species', 'gender', 'status', 'origin' e 'image'", async () =>
         {
             const response = await request.get("/rickandmorty/character/1")
-            console.log(response.body)
             const props =['id', 'name', 'species', 'gender', 'status', 'origin', 'image']
             props.forEach(prop=>{
                 expect(response.body).toHaveProperty(prop)
             })
+        })
+
+        it("Si hay un error responde con status: 500", async ()=>{
+            const response = await request.get("/rickandmorty/character/665j")
+            expect(response.statusCode).toBe(500)
         })
     })
 })
