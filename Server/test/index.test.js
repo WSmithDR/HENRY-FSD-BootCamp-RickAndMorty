@@ -23,4 +23,12 @@ describe("test de RUTAS", ()=>{
             expect(response.statusCode).toBe(500)
         })
     })
+
+    describe("GET /rickandmorty/login", ()=>{
+        it("Responde con un objeto con la propiedad access en true si la información del usuario es válida", async()=>{
+            const response = await  request.get("/rickandmorty/login?email=wagnersmith123@hotmail.com&password=@BOLUDO_123")
+            const access = {acess: true}
+            expect(response.body).toEqual(access)
+        })
+    })
 })
