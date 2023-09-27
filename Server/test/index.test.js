@@ -2,6 +2,18 @@ const app = require("./../src/app")
 const session = require("supertest")
 const request = session(app)
 
+const character = {
+    id: 3535,
+    name: "Dai",
+    species: "Human",
+    gender:"Female",
+    status: "Alive",
+    origin: {
+        name: "Earth (C-137)"
+    },
+    image: "image.jpg"
+}
+
 describe("test de RUTAS", ()=>{
     describe("GET /rickandmorty/character/:id", ()=>{
         it("Responde con status: 200", async ()=>{
@@ -12,10 +24,9 @@ describe("test de RUTAS", ()=>{
         it("Responde un objeto con las propiedades: 'id', 'name', 'species', 'gender', 'status', 'origin' e 'image'", async () =>
         {
             const response = await request.get("/rickandmorty/character/1")
-            const props =['id', 'name', 'species', 'gender', 'status', 'origin', 'image']
-            props.forEach(prop=>{
+            for(const prop in character){
                 expect(response.body).toHaveProperty(prop)
-            })
+            }
         })
 
         it("Si hay un error responde con status: 500", async ()=>{
@@ -36,6 +47,15 @@ describe("test de RUTAS", ()=>{
             const response = await  request.get("/rickandmorty/login?email=wagnersmith123@hotmail.com&password=@BOLUDO_123dfsd")
             access.access = false
             expect(response.body).toEqual(access)
+        })
+    })
+
+    describe("POST /rickandmorty/fav", ()=> {
+        it("Debe guardar el personaje en favoritos", async ()=>{
+            const response = await request.post("/rickandmorty/fav")
+            .send(character)
+            console.log(response.body)
+            expect(response.body).toContainEqual(character)
         })
     })
 })
