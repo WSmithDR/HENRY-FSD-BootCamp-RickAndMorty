@@ -57,5 +57,12 @@ describe("test de RUTAS", ()=>{
             console.log(response.body)
             expect(response.body).toContainEqual(character)
         })
+
+        it("Debe agregar personjaes a favoritos sin eliminar los existentes", async ()=> {
+            character.id = 65456
+            character.name = "Cuchicuchi"
+            const response = await request.post("/rickandmorty/fav").send(character)
+            expect(response.body.length).toBe(2)
+        })
     })
 })
