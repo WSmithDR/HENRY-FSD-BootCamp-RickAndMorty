@@ -71,5 +71,10 @@ describe("test de RUTAS", ()=>{
             const response = await request.delete("/rickandmorty/fav/2")
             expect(response.body.length).toBe(2)
         })
+
+        it("Si el ID enviado existe, debería elminarlo de favoritos", async ()=> {
+            const response = await request.delete("/rickandmorty/fav/65456")
+            expect(response.body.length).toBe(1)
+        })
     })
 })
