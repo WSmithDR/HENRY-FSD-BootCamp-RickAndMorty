@@ -2,6 +2,16 @@ const app = require("./../src/app")
 const session = require("supertest")
 const request = session(app)
 
+const character = {
+    id: 827,
+    name: 'Wagner Smith Dueñas Remache',
+    species: 'Human',
+    origin: { name: 'unknown', url: '' },
+    image: 'https://rickandmortyapi.com/api/character/avatar/56.jpeg',
+    gender: 'Male',
+    status: 'Alive'
+  }
+
 describe("test de RUTAS", ()=>{
     describe("GET /rickandmorty/character/:id", ()=>{
         it("Responde con status: 200", async ()=>{
