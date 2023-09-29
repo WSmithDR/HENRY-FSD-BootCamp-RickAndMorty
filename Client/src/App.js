@@ -25,7 +25,7 @@ function App() {
    //Handlers
    const onSearch = async (id)=>{
       try {
-         const {data} = axios(`http://localhost:3001/rickandmorty/character/${id}`)
+         const {data} = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
          
          if(data.name) setCharacters([...characters, data])
 
