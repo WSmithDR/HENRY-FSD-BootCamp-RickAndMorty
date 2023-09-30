@@ -1,8 +1,9 @@
-import Card from './Card';
+import Card from '../Card/Card';
+import StyledCardsContainer from './styledCardsContainer';
 
 export default function Cards({characters, onClose}) {
    return (
-   <div>
+   <StyledCardsContainer>
       {
          characters.map(character => <Card
             id={character.id}
@@ -15,6 +16,6 @@ export default function Cards({characters, onClose}) {
             onClose={onClose}
          />)
       }
-   </div>
+   </StyledCardsContainer>
    )
 }

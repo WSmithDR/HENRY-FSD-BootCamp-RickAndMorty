@@ -1,6 +1,7 @@
 import { connect, useDispatch } from "react-redux"
-import Card from "../Card"
 import { filterCards, orderCards, removeFav } from "../../redux/actions/actions"
+import StyledCardsContainer from "../Cards/styledCardsContainer"
+import CardDetail from "../CardDetail/CardDetail"
 
 const Favorites = ({myFavorites, onClose, removeFav})=>{
     const closeFavorite = (id)=>{
@@ -34,8 +35,8 @@ const Favorites = ({myFavorites, onClose, removeFav})=>{
                     <option value="unknown">Unknown</option>
                 </select>
             </div>
-            <div>
-                {myFavorites && myFavorites.map(favChar => <Card
+            <StyledCardsContainer>
+                {myFavorites && myFavorites.map(favChar => <CardDetail
                 id={favChar.id}
                 name={favChar.name}
                 status={favChar.status}
@@ -45,7 +46,7 @@ const Favorites = ({myFavorites, onClose, removeFav})=>{
                 image={favChar.image}
                 onClose={()=>closeFavorite(favChar.id)}
             />)}
-            </div>
+            </StyledCardsContainer>
         </div>
     )
 }

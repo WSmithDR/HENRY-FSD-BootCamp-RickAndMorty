@@ -1,13 +1,13 @@
 import axios from 'axios';
 import './App.css';
-import Cards from './components/Cards.jsx';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import {useState, useEffect} from "react"
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom"
 import About from './components/About/About';
 import Detail from "./components/Detail/Detail"
-import Form from './components/Form/Form';
 import Favorites from './components/Favorites/Favorites';
+import Login from './components/Login/Login';
+import Cards from './components/Cards/Cards';
 
 
 function App() {
@@ -50,13 +50,17 @@ function App() {
          
    }
 
+   const logOut = () => {
+      setAccess(false) && navigate("/")
+   }
+
    return (
       <div className='App'>
          {
-         location.pathname !=="/" ? <NavBar onSearch={onSearch}/>:null
+         location.pathname !=="/" ? <NavBar onSearch={onSearch} logOut={logOut}/>:null
          }
          <Routes>
-            <Route path="/" element={<Form  login={login}/>}/>
+            <Route path="/" element={<Login  login={login}/>}/>
             <Route path="/home" element={<Cards characters={characters} onClose={onClose}/>}/>
             <Route path="/about" element={<About/>}/>
             <Route path="/detail/:id" element={<Detail/>}/>
