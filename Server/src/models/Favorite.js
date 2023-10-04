@@ -23,7 +23,10 @@ module.exports = sequelize => {
             type: DataTypes.ENUM("Male", "Female", "Genderless", "unknown"),
             allowNull: false
         },
-        origin:{},
+        origin:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         image:{}
     },{timestamps:false})
 }
