@@ -19,7 +19,10 @@ module.exports = sequelize => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        gender:{},
+        gender:{
+            type: DataTypes.ENUM("Male", "Female", "Genderless", "unknown"),
+            allowNull: false
+        },
         origin:{},
         image:{}
     },{timestamps:false})
