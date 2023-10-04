@@ -2,7 +2,11 @@ const {DataTypes} = require('sequelize')
 
 module.exports = sequelize => {
     sequelize.define('User',{
-        id:{},
+        id:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true
+        },
         email:{},
         password:{}
     },{timestamps:false})
