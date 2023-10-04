@@ -11,7 +11,10 @@ module.exports = sequelize => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        status:{},
+        status:{
+            type: DataTypes.ENUM("Alive", "Dead", "unknown"),
+            allowNull: false
+        },
         species:{},
         gender:{},
         origin:{},
