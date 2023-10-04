@@ -12,3 +12,15 @@ FavoriteModel(sequelize)
 
 UserModel(sequelize)
 
+
+const {User, Favorite} = sequelize.models
+
+User.belongsToMany(Favorite, {through: "User_Favorite", timestamps: false})
+Favorite.belongsToMany(User, {through: "User_Favorite", timestamps: false})
+
+module.exports = {
+    User,
+    Favorite,
+    conn: sequelize
+}
+
