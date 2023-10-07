@@ -17,6 +17,4 @@ const postUser = async (request, response) => {
     }
 }
 
-module.exports = {
-    postUser
-}
+module.exports = postUser
