@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { addFav, removeFav } from "../redux/actions/actions";
+import { addFav, removeFav } from "../../redux/actions/actions";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
+import { StyledChar } from ".";
 
 const Card = ({
    id,
@@ -42,17 +43,10 @@ const Card = ({
       })
    }, [myFavorites])
 
-   const cardStyles = {
-      backgroundColor:"#3C3E44",
-      border: "2px solid #97ce4c",
-      color:"white",
-      borderRadius:"15px",
-      padding:"10px",
-      margin:"10px"
-   }
+
 
    return (
-      <div style={cardStyles}>
+      <StyledChar>
          {isFav ? (
             <button onClick={favoriteHandler}>❤️</button>
          ) : (
@@ -65,7 +59,7 @@ const Card = ({
          <p><strong>Gender: </strong>{gender}</p>
          <p><strong>Origin: </strong>{origin}</p>
          <img src={image} alt={name} />
-      </div>
+      </StyledChar>
    );
 }
 

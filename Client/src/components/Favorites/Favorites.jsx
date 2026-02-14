@@ -1,5 +1,5 @@
 import { connect, useDispatch } from "react-redux"
-import Card from "../Card"
+import Card from "../Card/index.jsx"
 import { filterCards, orderCards, removeFav } from "../../redux/actions/actions"
 
 const Favorites = ({myFavorites, onClose, removeFav})=>{
