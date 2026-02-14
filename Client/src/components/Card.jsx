@@ -15,14 +15,14 @@ const Card = ({
    addFav,
    removeFav,
    myFavorites
-}) =>{
+}) => {
    const [isFav, setIsFav] = useState(false)
 
-   const favoriteHandler = ()=>{
-      if(isFav){
+   const favoriteHandler = () => {
+      if (isFav) {
          setIsFav(false)
          removeFav(id)
-      }else{
+      } else {
          setIsFav(true)
          addFav({
             id,
@@ -36,19 +36,30 @@ const Card = ({
       }
    }
 
-   useEffect(()=>{
+   useEffect(() => {
       myFavorites.forEach(favChar => {
          favChar.id === id && setIsFav(true)
       })
-   },[myFavorites])
+   }, [myFavorites])
+
+   const cardStyles = {
+      backgroundColor:"#3C3E44",
+      border: "2px solid #97ce4c",
+      color:"white",
+      borderRadius:"15px",
+      padding:"10px",
+      margin:"10px",
+      width:"30%"
+   }
+
    return (
-      <div>
-         {isFav? (
-         <button onClick={favoriteHandler}>❤️</button>
-         ):(
-         <button onClick={favoriteHandler}>🤍</button>
+      <div style={cardStyles}>
+         {isFav ? (
+            <button onClick={favoriteHandler}>❤️</button>
+         ) : (
+            <button onClick={favoriteHandler}>🤍</button>
          )}
-         <button onClick={()=>onClose(id)}>X</button>
+         <button onClick={() => onClose(id)}>X</button>
          <p><Link to={`/detail/${id}`}><strong>Name: </strong>{name}</Link></p>
          <p><strong>Status: </strong>{status}</p>
          <p><strong>Species: </strong>{species}</p>
@@ -59,19 +70,19 @@ const Card = ({
    );
 }
 
-export const mapDispatchToProps=(dispatch)=>{
+export const mapDispatchToProps = (dispatch) => {
    return {
-      addFav:character => dispatch(addFav(character)),
-      removeFav:id => dispatch(removeFav(id))
+      addFav: character => dispatch(addFav(character)),
+      removeFav: id => dispatch(removeFav(id))
    }
 }
 
-export const mapStateToProps = (state)=>{
+export const mapStateToProps = (state) => {
    return {
-      myFavorites:state.myFavorites
+      myFavorites: state.myFavorites
    }
 }
 
 export default connect(
-   mapStateToProps, 
+   mapStateToProps,
    mapDispatchToProps)(Card)
