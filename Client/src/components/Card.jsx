@@ -48,8 +48,7 @@ const Card = ({
       color:"white",
       borderRadius:"15px",
       padding:"10px",
-      margin:"10px",
-      width:"30%"
+      margin:"10px"
    }
 
    return (
