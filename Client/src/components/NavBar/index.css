@@ -1,0 +1,90 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #282c34 0%, #1a1d23 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #61dafb;
+}
+
+.navbar button {
+  padding: 0.75rem 1.5rem;
+  margin: 0 0.5rem;
+  background: linear-gradient(135deg, #61dafb 0%, #4fa8c5 100%);
+  color: #282c34;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.navbar button:hover::before {
+  left: 100%;
+}
+
+.navbar button:hover {
+  background: linear-gradient(135deg, #21a1f1 0%, #1a8fbf 100%);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(33, 161, 241, 0.3);
+}
+
+.navbar button:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar .active {
+  background: linear-gradient(135deg, #21a1f1 0%, #1a8fbf 100%);
+  box-shadow: 0 4px 8px rgba(33, 161, 241, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+ 
+  .navbar button {
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.75rem;
+  }
+ 
+  .navbar button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}

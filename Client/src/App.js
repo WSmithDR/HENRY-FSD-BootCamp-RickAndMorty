@@ -1,7 +1,7 @@
 import axios from 'axios';
 import './App.css';
 import Cards from './components/Cards/index.jsx';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/index.jsx';
 import {useState, useEffect} from "react"
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom"
 import About from './components/About/About';
