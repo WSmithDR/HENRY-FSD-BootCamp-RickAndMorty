@@ -25,6 +25,8 @@ test_db_connection()
 FavoriteModel(sequelize)
 UserModel(sequelize)
 
+//Puse un script para verifir la conexion a la base de datos
+
 const {User, Favorite} = sequelize.models
 User.belongsToMany(Favorite, {through: 'user_favorite', timestamps: false})
 Favorite.belongsToMany(User, {through: 'user_favorite', timestamps: false})
