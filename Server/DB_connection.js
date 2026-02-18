@@ -25,4 +25,4 @@ test_db_connection()
 FavoriteModel(sequelize)
 UserModel(sequelize)
 
-
+//Puse un script para probar la conexion
