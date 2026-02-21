@@ -26,6 +26,4 @@ const getCharById = async (request, response) => {
     }
 }
 
-module.exports = {
-    getCharById
-}
+module.exports = getCharById

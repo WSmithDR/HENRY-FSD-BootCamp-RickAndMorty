@@ -1,4 +1,4 @@
-const User = require("./../DB_connection")
+const {User} = require("./../DB_connection")
 
 const postUser = async (request, response) => {
     try {
@@ -13,7 +13,7 @@ const postUser = async (request, response) => {
         
         return response.status(200).json(user)
     } catch (error) {
-        return response.status(500).json({error: error.message})
+        return response.status(500).json({error:error.message})
     }
 }
 
