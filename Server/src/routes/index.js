@@ -1,19 +1,21 @@
-const getCharById = require("../controllers/getCharById")
 const login = require("../controllers/login")
-const postFav = require("../controllers/postFav")
-const postUser = require("../controllers/postUser")
-
+const getCharById = require("../controllers/getCharById")
+const postFav = require("./../controllers/postFav")
+const deleteFav = require("./../controllers/deleteFav")
+const postUser = require("./../controllers/postUser")
+const authMiddleware = require("../middlewares/auth")
 
 const router = require("express").Router()
 
 router.get("/character/:id", getCharById)
 
-router.get("/login", login)
+router.post("/login", login)
 
-router.post("/fav", postFav)
+// RUTAS PROTEGIDAS con middleware
+router.post("/fav", authMiddleware, postFav)
 
-router.post("/login", postUser)
+router.delete("/fav/:id", authMiddleware, deleteFav)
 
-//router.delete("/fav/:id", deleteFav)
+router.post("/register", postUser)
 
 module.exports = router

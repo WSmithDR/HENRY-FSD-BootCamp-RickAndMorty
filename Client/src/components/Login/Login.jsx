@@ -30,7 +30,7 @@ const Login = ({login})=> {
                 {errors.email && <p className={styledLogin.error}>{errors.email}</p>}
             </div>
             <div>
-                <label className={styledLogin.label} htmlFor="passowrd">Password: </label>
+                <label className={styledLogin.label} htmlFor="password">Password: </label>
                 <input className={styledLogin.inputField} value={userData.password} name="password" type="password" onChange={handleChange}/>
                 {errors.password && <p className={styledLogin.error}>{errors.password}</p>}
             </div>

@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-// Define los estilos para el contenedor principal
 export const CardContainer = styled.div`
   background-color: #282c35;
   border-radius: 8px;
