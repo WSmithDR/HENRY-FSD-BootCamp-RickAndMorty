@@ -54,9 +54,9 @@ function App() {
       setCharacters(filteredCharacters)
    }
 
-   const handleLogin = (userData) => {
+   const handleLogin = async (userData) => {
       console.log('handleLogin called')
-      const result = dispatch(login(userData))
+      const result = await dispatch(login(userData))
       console.log('Login result:', result)
 
       if (result.success) {
