@@ -1,8 +1,8 @@
-require('dotenv').config()
-const { User } = require("./../../DB_connection")
+const { User } = require("./../config/DB_connection")
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { JWT_SECRET } = process.env
+const { jwtSecret } = require('../config/env')
+
 
 const login = async (request, response) => {
     try {
@@ -16,8 +16,8 @@ const login = async (request, response) => {
         console.log('User found:', user)
         console.log('Password in DB:', user.password)
         console.log('Password provided:', password)
-        // Asegúrate que JWT_SECRET existe
-        console.log('JWT_SECRET:', JWT_SECRET)
+        // Asegúrate que jwtSecret existe
+        console.log('jwtSecret:', jwtSecret)
 
         if (!user) return response.status(404).send("User not found!")
 
@@ -43,7 +43,7 @@ const login = async (request, response) => {
                 id: user.id,
                 email: user.email
             },
-            JWT_SECRET,
+            jwtSecret,
             { expiresIn: '1h' }
         )
 

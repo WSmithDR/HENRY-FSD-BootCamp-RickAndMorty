@@ -1,4 +1,4 @@
-const {User} = require("./../../DB_connection")
+const {User} = require("../config/DB_connection")
 
 const postUser = async (request, response) => {
     try {

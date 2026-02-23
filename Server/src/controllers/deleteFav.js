@@ -1,4 +1,4 @@
-const { Favorite, User, conn } = require("./../../DB_connection")
+const { Favorite, User, conn } = require("../config/DB_connection")
 
 const deleteFav = async (request, response) => {
     const transaction = await conn.transaction()

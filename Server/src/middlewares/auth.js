@@ -1,6 +1,6 @@
-require('dotenv').config()
 const jwt = require('jsonwebtoken')
-const { JWT_SECRET } = process.env
+const { jwtSecret } = require('../config/env')
+
 
 const authMiddleware = (req, res, next) => {
     try {
@@ -17,7 +17,7 @@ const authMiddleware = (req, res, next) => {
         }
 
         // Verificar token
-        const decoded = jwt.verify(token, JWT_SECRET)
+        const decoded = jwt.verify(token, jwtSecret)
 
         // Añadir usuario al request
         req.user = decoded

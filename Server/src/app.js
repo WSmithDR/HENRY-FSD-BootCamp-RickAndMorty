@@ -9,7 +9,7 @@ server.use(morgan("dev"))
 
 
 server.use(cors({
-    origin: 'http://localhost:3000',
+    origin: '*',
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 }))
