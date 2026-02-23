@@ -10,6 +10,7 @@ import Favorites from './components/Favorites/Favorites';
 import Login from './components/Login/Login';
 import Cards from './components/Cards/Cards';
 import axios from 'axios';
+import config from "./config";
 
 function App() {
    //Hooks
@@ -40,7 +41,7 @@ function App() {
    //Handlers
    const onSearch = async (id) => {
       try {
-         const { data } = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
+         const { data } = await axios(`${config.api.baseURL}/character/${id}`)
 
          if (data.name) setCharacters([...characters, data])
 

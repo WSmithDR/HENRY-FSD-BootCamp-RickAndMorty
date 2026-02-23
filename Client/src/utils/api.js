@@ -1,8 +1,9 @@
 import axios from 'axios'
+import config from '../config'
 
 const api = axios.create({
-    baseURL: 'http://localhost:3001/rickandmorty',
-    timeout: 10000,
+    baseURL: config.api.baseURL,
+    timeout: config.api.timeout,
 })
 
 // Interceptor modificado
