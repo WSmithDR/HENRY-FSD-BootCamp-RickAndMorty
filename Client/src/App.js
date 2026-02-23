@@ -1,72 +1,90 @@
-import axios from 'axios';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
-import {useState, useEffect} from "react"
-import {Route, Routes, useLocation, useNavigate} from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
+import { login, logout, rehydrateAuth } from './redux/actions/actions'
 import About from './components/About/About';
 import Detail from "./components/Detail/Detail"
 import Favorites from './components/Favorites/Favorites';
 import Login from './components/Login/Login';
 import Cards from './components/Cards/Cards';
-
+import axios from 'axios';
 
 function App() {
    //Hooks
    const [characters, setCharacters] = useState([])
-   const [access, setAccess] = useState(false)
    const location = useLocation()
    const navigate = useNavigate()
-   useEffect(()=>{!access && navigate("/")},[access])
+   const dispatch = useDispatch()
 
+   // Obtener estado del Redux store
+   const { access, user } = useSelector(state => state)
+
+   // Verificar autenticación al iniciar la app
+   useEffect(() => {
+      const { hasSession } = dispatch(rehydrateAuth())
+      if (!hasSession) {
+         navigate('/')
+      }
+   }, [dispatch, navigate])
+
+   // Redirigir si no hay acceso
+   useEffect(() => {
+      console.log('Access changed:', access)
+      if (!access) {
+         console.log('Navigating to /')
+         navigate('/')
+      }
+   }, [access, navigate])
    //Handlers
-   const onSearch = async (id)=>{
+   const onSearch = async (id) => {
       try {
-         const {data} = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
-         
-         if(data.name) setCharacters([...characters, data])
+         const { data } = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
 
-   } catch (error) {
-      alert("¡No hay personaje con este Id!")
-      
+         if (data.name) setCharacters([...characters, data])
+
+      } catch (error) {
+         alert("¡No hay personaje con este Id!")
       }
    }
 
-   const onClose = (id)=>{
-      const filteredCharacters = characters.filter(character => character.id!==Number(id))
+   const onClose = (id) => {
+      const filteredCharacters = characters.filter(character => character.id !== Number(id))
       setCharacters(filteredCharacters)
    }
 
-   const login = async (userData)=>{
-      const URL = "http://localhost:3001/rickandmorty/login"
-      try {
-         const {email, password} = userData
-         const {data} = await axios(URL+`?email=${email}&password=${password}`)
-         const {access} = data
-         setAccess(access)
-         access && navigate("/home")
-      } catch (error) {
-         console.log(error.message)
+   const handleLogin = (userData) => {
+      console.log('handleLogin called')
+      const result = dispatch(login(userData))
+      console.log('Login result:', result)
+
+      if (result.success) {
+         console.log('Navigating to /home')
+         navigate("/home")
+      } else {
+         console.log('Login failed:', result.error)
+         alert(result.error || 'Login failed')
       }
-         
    }
 
-   const logOut = () => {
-      setAccess(false) && navigate("/")
+   const handleLogout = () => {
+      dispatch(logout())
+      navigate("/")
    }
 
    return (
       <div className='App'>
          {
-         location.pathname !=="/" ? <NavBar onSearch={onSearch} logOut={logOut}/>:null
+            location.pathname !== "/" ? <NavBar onSearch={onSearch} logOut={handleLogout} /> : null
          }
          <Routes>
-            <Route path="/" element={<Login  login={login}/>}/>
-            <Route path="/home" element={<Cards characters={characters} onClose={onClose}/>}/>
-            <Route path="/about" element={<About/>}/>
-            <Route path="/detail/:id" element={<Detail/>}/>
-            <Route path="/favorites" element={<Favorites onClose={onClose}/>}/>
+            <Route path="/" element={<Login login={handleLogin} />} />
+            <Route path="/home" element={<Cards characters={characters} onClose={onClose} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/favorites" element={<Favorites onClose={onClose} />} />
          </Routes>
-         
       </div>
    );
 }

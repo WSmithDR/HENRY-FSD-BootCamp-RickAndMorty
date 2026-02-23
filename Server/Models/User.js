@@ -1,4 +1,4 @@
-const {DataTypes} = require("sequelize")
+const { DataTypes } = require("sequelize")
 const bcrypt = require('bcryptjs')
 
 module.exports = sequelize => {
@@ -8,7 +8,7 @@ module.exports = sequelize => {
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
-        }, 
+        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -19,26 +19,15 @@ module.exports = sequelize => {
             type: DataTypes.STRING,
             allowNull: false,
             set(value) {
+                console.log('Setter called with:', value)
                 const salt = bcrypt.genSaltSync(10)
                 const hash = bcrypt.hashSync(value, salt)
+                console.log('Hash generated:', hash)
                 this.setDataValue('password', hash)
             }
         }
     }, {
-        timestamps: false,
-        hooks: {
-            beforeCreate: (user) => {
-                if (user.password) {
-                    const salt = bcrypt.genSaltSync(10)
-                    user.password = bcrypt.hashSync(user.password, salt)
-                }
-            },
-            beforeUpdate: (user) => {
-                if (user.changed('password')) {
-                    const salt = bcrypt.genSaltSync(10)
-                    user.password = bcrypt.hashSync(user.password, salt)
-                }
-            }
-        }
+        timestamps: false
+        // Eliminados los hooks para evitar doble hasheo
     })
 }

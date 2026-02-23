@@ -18,7 +18,7 @@ const authMiddleware = (req, res, next) => {
 
         // Verificar token
         const decoded = jwt.verify(token, JWT_SECRET)
-        
+
         // Añadir usuario al request
         req.user = decoded
         next()

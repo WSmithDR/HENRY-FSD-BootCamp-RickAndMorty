@@ -3,7 +3,7 @@ const getCharById = require("../controllers/getCharById")
 const postFav = require("./../controllers/postFav")
 const deleteFav = require("./../controllers/deleteFav")
 const postUser = require("./../controllers/postUser")
-const authMiddleware = require("./../middleware/auth")  // Importar middleware
+const authMiddleware = require("../middlewares/auth")
 
 const router = require("express").Router()
 

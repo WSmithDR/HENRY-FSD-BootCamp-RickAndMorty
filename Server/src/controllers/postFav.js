@@ -1,39 +1,57 @@
-const {Favorite, User} = require("./../../DB_connection")
+const { Favorite, User, conn } = require("./../../DB_connection")
 
-const postFav = async(request, response) => {
+const postFav = async (request, response) => {
+    const transaction = await conn.transaction()
+    
     try {
-        const {id, name, origin, status, image, species, gender} = request.body
+        const { id, name, origin, status, image, species, gender } = request.body
         
-        if(!id || !name || !origin || !status || !image || !species || !gender){
-            return response.status(401).send("Incomplete data")
-        }
-
-        // Verificar que el usuario está autenticado (viene del middleware)
-        if (!req.user) {
-            return response.status(401).json({ error: 'Authentication required' })
+        // Lista de propiedades requeridas
+        const requiredProps = ['id', 'name', 'origin', 'status', 'image', 'species', 'gender']
+        const missingProps = requiredProps.filter(prop => !request.body[prop])
+        
+        if (missingProps.length > 0) {
+            await transaction.rollback()
+            return response.status(400).json({ 
+                error: "Incomplete data",
+                missing: missingProps
+            })
         }
 
         // Crear o encontrar el favorito
-        const [favorite] = await Favorite.findOrCreate({
-            where: {id, name, origin, status, image, species, gender}
+        const [favorite, created] = await Favorite.findOrCreate({
+            where: { id, name, origin, status, image, species, gender },
+            transaction
         })
 
         // Encontrar al usuario autenticado
-        const user = await User.findByPk(req.user.id)
-        if(!user) {
+        const user = await User.findByPk(request.user.id, { transaction })
+        if (!user) {
+            await transaction.rollback()
             return response.status(404).json({ error: 'User not found' })
         }
 
-        // Asociar el favorito con el usuario (relación many-to-many)
-        await user.addFavorite(favorite)
-
-        // Obtener todos los favoritos del usuario
-        const userFavorites = await user.getFavorites()
+        // Asociar el favorito al usuario
+        await user.addFavorite(favorite, { transaction })
         
-        return response.status(200).json(userFavorites)
+        // Obtener los favoritos actualizados del usuario
+        const userFavorites = await user.getFavorites({ transaction })
+        
+        const message = created 
+            ? "Favorite added successfully" 
+            : "Favorite already exists"
+        
+        await transaction.commit()
+        
+        return response.status(200).json({
+            message,
+            favorites: userFavorites,
+            wasCreated: created
+        })
         
     } catch (error) {
-        return response.status(500).json({error: error.message})
+        await transaction.rollback()
+        return response.status(500).json({ error: error.message })
     }
 }
 

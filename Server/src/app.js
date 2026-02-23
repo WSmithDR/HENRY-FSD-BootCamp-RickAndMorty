@@ -2,11 +2,19 @@ const express = require("express")
 const server = express()
 const router = require("./routes/index")
 const morgan = require("morgan")
+const cors = require('cors')
 
 server.use(express.json())
 server.use(morgan("dev"))
 
-server.use((request, response, next)=> {
+
+server.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
+/*server.use((request, response, next)=> {
     response.header("Access-Control-Allow-Origin","*")
     response.header("Access-Control-Allow-Credentials", "true")
     response.header(
@@ -18,7 +26,7 @@ server.use((request, response, next)=> {
         "GET, POST, OPTIONS, PUT, DELETE"
     )
     next()
-})
+})*/
 
 server.use("/rickandmorty", router)
 
