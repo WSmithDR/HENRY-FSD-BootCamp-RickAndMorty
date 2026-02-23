@@ -15,5 +15,5 @@ module.exports = {
     dbUser: DB_USER,
     dbPassword: DB_PASSWORD,
     jwtSecret: JWT_SECRET,
-    portSever: PORT_SERVER
+    portServer: PORT_SERVER
 }
