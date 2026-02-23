@@ -28,6 +28,4 @@ server.use(cors({
     next()
 })*/
 
-server.use("/rickandmorty", router)
-
 module.exports = server
