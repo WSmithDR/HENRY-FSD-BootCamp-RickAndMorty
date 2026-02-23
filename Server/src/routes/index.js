@@ -11,8 +11,6 @@ router.get("/character/:id", (request, response) =>{
     getCharById(request, response)
 })
 
-router.post("/login", login)
-
 // RUTAS PROTEGIDAS con middleware
 router.post("/fav", authMiddleware, postFav)
 
