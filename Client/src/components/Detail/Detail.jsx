@@ -1,12 +1,13 @@
 import axios from "axios"
 import { useParams } from "react-router-dom"
-import {useState, useEffect} from "react" 
+import {useState, useEffect} from "react"
+import config from "../../config" 
 const Detail = ()=>{
     const {id} = useParams()
     const[character, setCharacter] = useState({})
     
     useEffect(() => {
-        axios(`http://localhost:3001/rickandmorty/character/${id}`).then(({ data }) => {
+        axios(`${config.api.baseURL}/character/${id}`).then(({ data }) => {
            if (data.name) {
               setCharacter(data);
            } else {
