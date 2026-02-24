@@ -18,6 +18,4 @@ router.post("/fav", authMiddleware, postFav)
 
 router.delete("/fav/:id", authMiddleware, deleteFav)
 
-router.post("/register", postUser)
-
 module.exports = router
