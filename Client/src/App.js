@@ -1,13 +1,15 @@
 import axios from 'axios';
 import './App.css';
-import Cards from './components/Cards.jsx';
-import NavBar from './components/NavBar';
+
+
 import {useState, useEffect} from "react"
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom"
-import About from './components/About/About';
-import Detail from "./components/Detail/Detail"
-import Form from './components/Form/Form';
-import Favorites from './components/Favorites/Favorites';
+import NavBar from './components/NavBar';
+import Form from './components/Form';
+import Cards from './components/Cards';
+import About from './components/About';
+import Detail from './components/Detail';
+import Favorites from './components/Favorites';
 
 
 function App() {

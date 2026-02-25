@@ -1,5 +1,6 @@
-import SearchBar from "./SearchBar"
 import {NavLink} from "react-router-dom"
+import SearchBar from "../SearchBar"
+
 const NavBar = ({onSearch}) => {
     return(
         <div>
