@@ -1,7 +1,7 @@
 const server = require("./app")
-const PORT = 3001
-const {conn} = require("./DB_connection")
+const { conn } = require("./config/DB_connection")
+const { portServer } = require("./config/env")
 
-conn.sync({force:true}).then(
-    ()=> server.listen(PORT, ()=> console.log(`Server raised in port ${PORT}`))
-)
+conn.sync({ force: true }).then(() => {
+    server.listen(portServer    , () => console.log(`Server raised in port ${portServer}`))
+})
