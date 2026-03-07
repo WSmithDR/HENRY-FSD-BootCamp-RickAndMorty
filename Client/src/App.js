@@ -20,7 +20,7 @@ function App() {
    const dispatch = useDispatch()
 
    // Obtener estado del Redux store
-   const { access, user } = useSelector(state => state)
+   const { access } = useSelector(state => state)
 
    // Verificar autenticación al iniciar la app
    useEffect(() => {

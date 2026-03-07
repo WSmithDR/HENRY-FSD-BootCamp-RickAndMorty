@@ -40,7 +40,7 @@ const CardDetail = ({
       myFavorites.forEach(favChar => {
          favChar.id === id && setIsFav(true);
       });
-   }, [myFavorites]);
+   }, [myFavorites, id]);
 
    return (
       <CardContainer>
