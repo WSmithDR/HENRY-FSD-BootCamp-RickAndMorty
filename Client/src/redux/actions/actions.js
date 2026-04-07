@@ -1,4 +1,5 @@
-import api from '../../utils/api'
+
+import api from '../../services/api'
 import {
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
