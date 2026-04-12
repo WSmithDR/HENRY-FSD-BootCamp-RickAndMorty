@@ -7,16 +7,9 @@ import {
     FILTER_CARDS,
     ORDER_CARDS
 } from './actions/actions-types'
+import initialState from './initialState'
 
-const initialState = {
-    myFavorites: [],
-    allCharacters: [],
-    user: null,
-    token: null,
-    access: false,
-    isLoading: false,
-    error: null
-}
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
