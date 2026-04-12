@@ -3,7 +3,7 @@ import NavBar from './components/NavBar/NavBar';
 import { useState, useEffect } from "react"
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { login, logout, rehydrateAuth } from './redux/actions/actions'
+import { logout, rehydrateAuth } from './redux/actions/actions'
 import About from './components/About/About';
 import Detail from "./components/Detail/Detail"
 import Favorites from './components/Favorites/Favorites';
@@ -55,19 +55,7 @@ function App() {
       setCharacters(filteredCharacters)
    }
 
-   const handleLogin = async (userData) => {
-      console.log('handleLogin called')
-      const result = await dispatch(login(userData))
-      console.log('Login result:', result)
 
-      if (result.success) {
-         console.log('Navigating to /home')
-         navigate("/home")
-      } else {
-         console.log('Login failed:', result.error)
-         alert(result.error || 'Login failed')
-      }
-   }
 
    const handleLogout = () => {
       dispatch(logout())

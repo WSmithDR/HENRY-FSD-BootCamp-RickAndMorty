@@ -11,15 +11,9 @@ import {
 } from './actions-types'
 
 // Action creators simples
-export const loginSuccess = (access, token, user) => ({
-    type: LOGIN_SUCCESS,
-    payload: { access, token, user }
-})
 
-export const loginFailure = (error) => ({
-    type: LOGIN_FAILURE,
-    payload: error
-})
+
+
 
 export const logoutAction = () => ({
     type: LOGOUT
@@ -37,29 +31,7 @@ export const removeFavSuccess = (id) => ({
 
 // Actions con side effects (thunks)
 // En actions.js:
-export const login = (userData) => {
-    return async (dispatch) => {
-        try {
-            console.log('Login action called with:', userData)
-            const { data } = await api.post('/login', userData)
-            console.log('Response from server:', data)
 
-            const { access, token, user } = data
-            console.log('Extracted:', { access, token, user })
-            localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(user))
-
-            dispatch(loginSuccess(access, token, user))
-
-            return { success: true }
-        } catch (error) {
-            console.log('Login error:', error)
-            const errorMessage = error.response?.data?.error || 'Login failed'
-            dispatch(loginFailure(errorMessage))
-            return { success: false, error: errorMessage }
-        }
-    }
-}
 
 export const logout = () => {
     return (dispatch) => {
