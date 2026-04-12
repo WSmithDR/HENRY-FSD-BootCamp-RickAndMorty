@@ -19,9 +19,6 @@ function App() {
    const navigate = useNavigate()
    const dispatch = useDispatch()
 
-   // Obtener estado del Redux store
-   const { access, user } = useSelector(state => state)
-
    // Verificar autenticación al iniciar la app
    useEffect(() => {
       const { hasSession } = dispatch(rehydrateAuth())
@@ -30,14 +27,7 @@ function App() {
       }
    }, [dispatch, navigate])
 
-   // Redirigir si no hay acceso
-   useEffect(() => {
-      console.log('Access changed:', access)
-      if (!access) {
-         console.log('Navigating to /')
-         navigate('/')
-      }
-   }, [access, navigate])
+
    //Handlers
    const onSearch = async (id) => {
       try {
