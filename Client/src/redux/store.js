@@ -1,14 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from './reducer'
-
-const initialState = {
-    myFavorites: [],
-    user: null,
-    token: null,
-    isLoading: false,
-    error: null
-}
+import initialState from './initialState'
 
 // Restaurar desde localStorage si existe
 const persistedState = localStorage.getItem('reduxState')
