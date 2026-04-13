@@ -6,7 +6,7 @@ import getRandomChar from "./getRandomChar";
 import links from "./links";
 import styles from "./NavBar.module.css"; // Asegúrate de usar el nombre correcto de tu archivo CSS
 
-const NavBar = ({ onSearch, logOut }) => {
+const NavBar = ({ onSearch }) => {
   const clickHandler = () => {
     onSearch(getRandomChar());
   };
@@ -19,7 +19,7 @@ const NavBar = ({ onSearch, logOut }) => {
       {links.map(({ to, content }) => (
         <NavButton to={to} content={content}/>
       ))}
-      <button className={styles.logoutButton} onClick={logOut}>
+      <button className={styles.logoutButton} >
         logOut
       </button>
     </div>

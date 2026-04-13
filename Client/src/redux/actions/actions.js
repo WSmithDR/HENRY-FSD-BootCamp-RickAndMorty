@@ -22,10 +22,7 @@ export const loginFailure = (errorRes) => ({
     payload: errorRes
 })
 
-export const logoutAction = () => ({
-    type: LOGOUT,
-    payload: initialState
-})
+
 
 export const addFavSuccess = (favorites) => ({
     type: ADD_FAV,
@@ -56,14 +53,6 @@ export const login = (userData) => {
     }
 }
 
-export const logout = () => {
-    return (dispatch) => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        localStorage.removeItem("reduxState")
-        dispatch(logoutAction())
-    }
-}
 
 export const addFav = (character) => {
     return async (dispatch) => {

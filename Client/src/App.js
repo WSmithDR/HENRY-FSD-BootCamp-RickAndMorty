@@ -57,15 +57,11 @@ function App() {
       }
    }
 
-   const handleLogout = () => {
-      dispatch(logout())
-      navigate("/")
-   }
 
    return (
       <div className='App'>
          {
-            location.pathname !== "/" ? <NavBar onSearch={onSearch} logOut={handleLogout} /> : null
+            location.pathname !== "/" ? <NavBar onSearch={onSearch}  /> : null
          }
          <Routes>
             <Route path="/" element={<Login login={handleLogin} />} />

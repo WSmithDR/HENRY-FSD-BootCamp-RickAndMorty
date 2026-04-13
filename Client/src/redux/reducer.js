@@ -15,7 +15,6 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_SUCCESS:
         case LOGIN_FAILURE:
-        case LOGOUT:
             return {
                 ...state,
                 ...action.payload
