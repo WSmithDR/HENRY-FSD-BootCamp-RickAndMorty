@@ -57,7 +57,12 @@ const login = async (request, response) => {
         })
 
     } catch (error) {
-        return response.status(500).json({ error: error.message })
+        return response.status(500).json({
+            error: error.message, 
+            access: false,
+            user: null,
+            token: null
+        })
     }
 }
 
