@@ -1,5 +1,6 @@
 
 import api from '../../services/api'
+import initialState from '../initialState'
 import {
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -11,18 +12,19 @@ import {
 } from './actions-types'
 
 // Action creators simples
-export const loginSuccess = (access, token, user) => ({
+export const loginSuccess = (loginSuccessRes) => ({
     type: LOGIN_SUCCESS,
-    payload: { access, token, user }
+    payload: loginSuccessRes
 })
 
-export const loginFailure = (error) => ({
+export const loginFailure = (errorRes) => ({
     type: LOGIN_FAILURE,
-    payload: error
+    payload: errorRes
 })
 
 export const logoutAction = () => ({
-    type: LOGOUT
+    type: LOGOUT,
+    payload: initialState
 })
 
 export const addFavSuccess = (favorites) => ({
@@ -44,19 +46,20 @@ export const login = (userData) => {
             const { data } = await api.post('/login', userData)
             console.log('Response from server:', data)
 
-            const { access, token, user } = data
+            /*const { access, token, user } = data
             console.log('Extracted:', { access, token, user })
             localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(user))
+            localStorage.setItem('user', JSON.stringify(user))*/
 
-            dispatch(loginSuccess(access, token, user))
+            //dispatch(loginSuccess(access, token, user))
+            dispatch(loginSuccess(data))
 
-            return { success: true }
+            //return { success: true }
         } catch (error) {
             console.log('Login error:', error)
             const errorMessage = error.response?.data?.error || 'Login failed'
             dispatch(loginFailure(errorMessage))
-            return { success: false, error: errorMessage }
+            //return { success: false, error: errorMessage }
         }
     }
 }
@@ -92,7 +95,7 @@ export const removeFav = (id) => {
 }
 
 // Action de rehidratación
-export const rehydrateAuth = () => {
+/*export const rehydrateAuth = () => {
     return (dispatch) => {
         try {
             const token = localStorage.getItem('token')
@@ -113,7 +116,7 @@ export const rehydrateAuth = () => {
             return { hasSession: false }
         }
     }
-}
+}*/
 
 export const filterCards = (gender) => ({
     type: FILTER_CARDS,

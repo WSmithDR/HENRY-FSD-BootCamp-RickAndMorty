@@ -14,32 +14,11 @@ import initialState from './initialState'
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_SUCCESS:
-            return {
-                ...state,
-                access: action.payload.access,
-                user: action.payload.user,
-                token: action.payload.token,
-                error: null
-            }
-        
         case LOGIN_FAILURE:
-            return {
-                ...state,
-                access: false,
-                user: null,
-                token: null,
-                error: action.payload
-            }
-        
         case LOGOUT:
             return {
                 ...state,
-                access: false,
-                user: null,
-                token: null,
-                myFavorites: [],
-                allCharacters: [],
-                error: null
+                ...action.payload
             }
         
         case ADD_FAV:
