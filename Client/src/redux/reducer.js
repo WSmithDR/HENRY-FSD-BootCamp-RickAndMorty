@@ -22,16 +22,11 @@ const reducer = (state = initialState, action) => {
             }
         
         case ADD_FAV:
-            return {
-                ...state,
-                myFavorites: action.payload,
-                allCharacters: action.payload
-            }
-        
         case REMOVE_FAV:
             return {
                 ...state,
-                myFavorites: action.payload
+                myFavorites: [...action.payload],
+                allFavoriteCharacters: [...action.payload]
             }
 
         case FILTER_CARDS:
@@ -56,7 +51,7 @@ const reducer = (state = initialState, action) => {
             }
         
         default:
-            return state
+            return {...state}
     }
 }
 

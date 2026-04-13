@@ -2,7 +2,7 @@
 
 const initialState = {
     myFavorites: [],
-    allCharacters: [],
+    allFavoriteCharacters: [],
     user: null,
     token: null,
     access: false,
