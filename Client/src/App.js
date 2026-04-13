@@ -3,7 +3,7 @@ import NavBar from './components/NavBar/NavBar';
 import { useState, useEffect } from "react"
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { login, logout, rehydrateAuth } from './redux/actions/actions'
+import { login, logout} from './redux/actions/actions'
 import About from './components/About/About';
 import Detail from "./components/Detail/Detail"
 import Favorites from './components/Favorites/Favorites';
@@ -20,15 +20,7 @@ function App() {
    const dispatch = useDispatch()
 
    // Obtener estado del Redux store
-   const { access, user } = useSelector(state => state)
-
-   // Verificar autenticación al iniciar la app
-   useEffect(() => {
-      const { hasSession } = dispatch(rehydrateAuth())
-      if (!hasSession) {
-         navigate('/')
-      }
-   }, [dispatch, navigate])
+   const { access } = useSelector(state => state)
 
    // Redirigir si no hay acceso
    useEffect(() => {
@@ -38,6 +30,7 @@ function App() {
          navigate('/')
       }
    }, [access, navigate])
+
    //Handlers
    const onSearch = async (id) => {
       try {
@@ -57,15 +50,10 @@ function App() {
 
    const handleLogin = async (userData) => {
       console.log('handleLogin called')
-      const result = await dispatch(login(userData))
-      console.log('Login result:', result)
-
-      if (result.success) {
+      dispatch(login(userData))
+      if (access) {
          console.log('Navigating to /home')
          navigate("/home")
-      } else {
-         console.log('Login failed:', result.error)
-         alert(result.error || 'Login failed')
       }
    }
 

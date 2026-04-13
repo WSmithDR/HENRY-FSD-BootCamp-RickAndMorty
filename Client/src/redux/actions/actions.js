@@ -1,5 +1,6 @@
 
 import api from '../../services/api'
+import initialState from '../initialState'
 import {
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -11,18 +12,19 @@ import {
 } from './actions-types'
 
 // Action creators simples
-export const loginSuccess = (access, token, user) => ({
+export const loginSuccess = (loginSuccessRes) => ({
     type: LOGIN_SUCCESS,
-    payload: { access, token, user }
+    payload: loginSuccessRes
 })
 
-export const loginFailure = (error) => ({
+export const loginFailure = (errorRes) => ({
     type: LOGIN_FAILURE,
-    payload: error
+    payload: errorRes
 })
 
 export const logoutAction = () => ({
-    type: LOGOUT
+    type: LOGOUT,
+    payload: initialState
 })
 
 export const addFavSuccess = (favorites) => ({
@@ -30,9 +32,9 @@ export const addFavSuccess = (favorites) => ({
     payload: favorites
 })
 
-export const removeFavSuccess = (id) => ({
+export const removeFavSuccess = (favorites) => ({
     type: REMOVE_FAV,
-    payload: id
+    payload: favorites
 })
 
 // Actions con side effects (thunks)
@@ -43,20 +45,13 @@ export const login = (userData) => {
             console.log('Login action called with:', userData)
             const { data } = await api.post('/login', userData)
             console.log('Response from server:', data)
+            localStorage.setItem("token", data.token)
+            dispatch(loginSuccess(data))
 
-            const { access, token, user } = data
-            console.log('Extracted:', { access, token, user })
-            localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(user))
-
-            dispatch(loginSuccess(access, token, user))
-
-            return { success: true }
         } catch (error) {
             console.log('Login error:', error)
             const errorMessage = error.response?.data?.error || 'Login failed'
             dispatch(loginFailure(errorMessage))
-            return { success: false, error: errorMessage }
         }
     }
 }
@@ -65,6 +60,7 @@ export const logout = () => {
     return (dispatch) => {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
+        localStorage.removeItem("reduxState")
         dispatch(logoutAction())
     }
 }
@@ -73,7 +69,7 @@ export const addFav = (character) => {
     return async (dispatch) => {
         try {
             const { data } = await api.post('/fav', character)
-            dispatch(addFavSuccess(data))
+            dispatch(addFavSuccess(data.favorites))
         } catch (error) {
             console.error('Error adding favorite:', error)
         }
@@ -83,34 +79,10 @@ export const addFav = (character) => {
 export const removeFav = (id) => {
     return async (dispatch) => {
         try {
-            await api.delete(`/fav/${id}`)
-            dispatch(removeFavSuccess(id))
+            const {data} = await api.delete(`/fav/${id}`)
+            dispatch(removeFavSuccess(data.favorites))
         } catch (error) {
             console.error('Error removing favorite:', error)
-        }
-    }
-}
-
-// Action de rehidratación
-export const rehydrateAuth = () => {
-    return (dispatch) => {
-        try {
-            const token = localStorage.getItem('token')
-            const savedUser = JSON.parse(localStorage.getItem('user'))
-
-            if (!token || !savedUser) {
-                return { hasSession: false }
-            }
-
-            // Usar el action creator
-            dispatch(loginSuccess(true, token, savedUser))
-
-            return { hasSession: true, user: savedUser }
-        } catch (error) {
-            // Limpiar localStorage si está corrupto
-            localStorage.removeItem('token')
-            localStorage.removeItem('user')
-            return { hasSession: false }
         }
     }
 }

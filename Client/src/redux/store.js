@@ -1,19 +1,19 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from './reducer'
 import initialState from './initialState'
+import {composeWithDevTools} from "redux-devtools-extension"
+
 
 // Restaurar desde localStorage si existe
 const persistedState = localStorage.getItem('reduxState')
     ? JSON.parse(localStorage.getItem('reduxState'))
     : initialState
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
 const store = createStore(
     rootReducer,
     persistedState,
-    composeEnhancers(applyMiddleware(thunkMiddleware))
+    composeWithDevTools(applyMiddleware(thunkMiddleware))
 )
 
 // Guardar estado en localStorage cuando cambie
