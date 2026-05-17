@@ -1,4 +1,4 @@
-const app = require("./../src/app")
+const app = require("../app")
 const session = require("supertest")
 const request = session(app)
 
